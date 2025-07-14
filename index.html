@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>職員室注文アプリ</title>
+  <script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
+  <script src="script.js" defer></script>
+  <style>
+    body {
+      font-family: sans-serif;
+      padding: 20px;
+      max-width: 400px;
+      margin: auto;
+    }
+    label, select, button {
+      display: block;
+      margin: 15px 0;
+      font-size: 16px;
+    }
+    button {
+      padding: 10px 20px;
+      background-color: #06C755;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <h2>職員室 おやつ＆ドリンク 注文</h2>
+
+  <label for="product">商品を選択：</label>
+  <select id="product">
+    <option value="お茶">お茶</option>
+    <option value="コーヒー">コーヒー</option>
+    <option value="クッキー">クッキー</option>
+    <option value="チョコレート">チョコレート</option>
+  </select>
+
+  <label for="quantity">数量：</label>
+  <select id="quantity">
+    <option value="1">1個</option>
+    <option value="2">2個</option>
+    <option value="3">3個</option>
+  </select>
+
+  <button onclick="submitOrder()">注文する</button>
+</body>
+</html>
