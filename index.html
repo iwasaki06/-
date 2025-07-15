@@ -4,7 +4,6 @@
   <meta charset="UTF-8">
   <title>職員室注文アプリ</title>
   <script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
-  <script src="script.js" defer></script>
   <style>
     body {
       font-family: sans-serif;
@@ -46,5 +45,47 @@
   </select>
 
   <button onclick="submitOrder()">注文する</button>
+
+  <script>
+    // 必ず以下を自分の環境に置き換えてください
+    const LIFF_ID = "2007745242-Xq9bDGak";
+    const GAS_URL = "https://script.google.com/a/macros/ict.shimanet.ed.jp/s/AKfycbyQK0IEnYwaovoWakJiv4F7ewtoaqoX1cOM78Q418x_kRVRvovP9fq9PkYpTeI6TXATcQ/exec";
+
+    async function submitOrder() {
+      const product = document.getElementById("product").value;
+      const quantity = document.getElementById("quantity").value;
+
+      try {
+        await liff.init({ liffId: LIFF_ID });
+
+        if (!liff.isLoggedIn()) {
+          liff.login();
+          return;
+        }
+
+        const profile = await liff.getProfile();
+        const userName = profile.displayName;
+
+        const orderData = {
+          userName: userName,
+          product: product,
+          quantity: parseInt(quantity)
+        };
+
+        const response = await fetch(GAS_URL, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(orderData)
+        });
+
+        const result = await response.json();
+        alert(result.message || "注文が完了しました！");
+        liff.closeWindow();
+
+      } catch (err) {
+        alert("注文に失敗しました: " + err.message);
+      }
+    }
+  </script>
 </body>
 </html>
